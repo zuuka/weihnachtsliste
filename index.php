@@ -35,17 +35,22 @@
         $wishes->showPage($_SESSION['wishes']);   
 
         if($state == 3) {
-            echo "state = 1";
             $address = new AddressInput();
-            $valid = 0;
-            echo var_dump($_SESSION['name']);
+            $valid = Verifier::verifyName(trim($_SESSION['name'])) && 
+                     Verifier::verifyPlace(trim($_SESSION['place'])) &&
+                     Verifier::verifyPhone(preg_replace('/^\s*$/','',$_SESSION['phone']));
             echo "<form method=\"post\">";
-            $address->showName($_SESSION['name'], Verifier::verifyName(trim($_SESSION['name'])));
-            $address->showPlace($_SESSION['place'], Verifier::verifyPlace(trim($_SESSION['place'])));
-            $address->showPhone($_SESSION['phone'], Verifier::verifyPhone(preg_replace('/^\s*$/','',$_SESSION['phone'])));
             if(!$valid) {
+                $address->showName($_SESSION['name'], Verifier::verifyName(trim($_SESSION['name'])));
+                $address->showPlace($_SESSION['place'], Verifier::verifyPlace(trim($_SESSION['place'])));
+                $address->showPhone($_SESSION['phone'], Verifier::verifyPhone(preg_replace('/^\s*$/','',$_SESSION['phone'])));
                 $address->writeButton("submit", "Ok");
-            }        
+            } 
+            else {
+                $address->showFinalLabel("Vor & Zuname: {$_SESSION['name']}");
+                $address->showFinalLabel("Ort & PLZ:    {$_SESSION['place']}");
+                $address->showFinalLabel("Telefon:      {$_SESSION['phone']}");
+            }
             echo "</form>";
             if(isset($_POST['name'])) {
                 $_SESSION['name'] = trim($_POST['name']); 
@@ -63,7 +68,6 @@
 
         for($x = 0; $x < $wishes->numWishes; $x++) {
 	        if(isset($_POST["wish".$x])) {
-                //echo "$_POST[$value]<br>";
                 $_SESSION['wishes'][$x] = $_POST["wish".$x];
                 header("Refresh:0");
               }

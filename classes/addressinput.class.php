@@ -19,6 +19,10 @@ class AddressInput {
 		echo "<input type=\"$type\" value=\"$value\">";
 	}
 
+    public function showFinalLabel($value) {
+         echo "<label style=\"color : green;\">{$value} </label><br>\r\n";
+    }
+
     public function showName($value, $valid = 0) {
         // adress values are empty only show inputs and labels        
         if(empty($value)) {
@@ -64,6 +68,7 @@ class AddressInput {
            }
         }   
     }
+
 
 }
 ?>
