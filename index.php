@@ -9,7 +9,7 @@
         require_once "classes/addressinput.class.php";
         require_once "classes/verifier.class.php";
 
-        $wishes = new WishInput("Weichnachtsliste",3);
+        $wishes = new WishInput("Weihnachtsliste",3);
         $state = 0;        
         session_start();
         if(!isset($_SESSION['wishes'])) {
