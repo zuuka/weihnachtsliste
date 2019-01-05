@@ -1,7 +1,7 @@
 <!doctype html> 
 <head> 
 	<meta charset="utf-8"> 
-	<title>Die Weichnachtswunschliste</title> 
+	<title>Die Weihnachtswunschliste</title> 
 </head>
 <body>
 	<?php
